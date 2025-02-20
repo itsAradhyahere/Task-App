@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 
+  Tailwind Config Theme (v4.0)
+  https://tailwindcss.com/docs/theme
+*/
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  @apply dark:bg-zinc-900 dark:text-white bg-white text-zinc-800;
+}
+
+@theme {
+  --color-primary-50: #ecefff;
+  --color-primary-100: #dde2ff;
+  --color-primary-200: #c2caff;
+  --color-primary-300: #9da7ff;
+  --color-primary-400: #7678ff;
+  --color-primary-500: #5f56fe;
+  --color-primary-600: #4f35f3;
+  --color-primary-700: #462bd7;
+  --color-primary-800: #3926ad;
+  --color-primary-900: #322788;
+  --color-primary-950: #1e174f;
+}
+
+/* Antd Overrides */
+.ant-dropdown-menu-item-selected {
+  color: #fff !important;
+  background-color: var(--color-primary-600) !important;
+}
