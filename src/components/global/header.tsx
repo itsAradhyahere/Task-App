@@ -5,9 +5,10 @@ import { BiSearch } from "react-icons/bi";
 
 export function Header() {
   const today = new Date().toDateString();
+  // border-b dark:border-zinc-800 border-zinc-100
 
   return (
-    <header className="flex items-center justify-between gap-4 border-b dark:border-zinc-800 border-zinc-100 w-full lg:px-8 px-6 py-8">
+    <header className="flex items-center justify-between gap-4 w-full lg:px-8 px-6 py-6">
       <div className="flex items-center gap-4">
         <time dateTime={today} className="font-semibold text-xl">
           {today}

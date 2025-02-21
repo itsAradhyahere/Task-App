@@ -108,19 +108,19 @@ export function InboxIcon(props: React.SVGAttributes<SVGSVGElement>) {
     >
       <path
         d="M31.5 11.205H3.75V30H31.5V11.205Z"
-        stroke="#65676D"
+        stroke="currentColor"
         strokeWidth="2.25"
         strokeMiterlimit="10"
       />
       <path
         d="M23.7305 17.595H11.5205V23.61H23.7305V17.595Z"
-        stroke="#65676D"
+        stroke="currentColor"
         strokeWidth="2.25"
         strokeMiterlimit="10"
       />
       <path
         d="M11.625 11.205V5.25H23.625V11.205"
-        stroke="#65676D"
+        stroke="currentColor"
         strokeWidth="2.25"
         strokeMiterlimit="10"
       />
