@@ -1,4 +1,4 @@
-# Techinnover Task Management Tool
+# Tasklemon Task Management Tool
 
 Innovative task management for teams of all sizes. Streamline your workflow, boost productivity, and achieve your goals.
 
@@ -7,8 +7,23 @@ Innovative task management for teams of all sizes. Streamline your workflow, boo
 - React (TypeScript)
 - Tailwind CSS
 - Ant design
+- Axios
+
+## Run Project Locally
+
+```sh
+git clone https://github.com/Evavic44/tasky.git
+cd tasky
+
+npm install
+npm run dev
+```
+
+Finally you can visit [localhost:5173](http://localhost:5173) to see the app live
 
 ## Endpoint (Mockapi.io)
+
+Tasky uses a free mock backend API to illustrate a more real-world implementation. Although it is grossly a shadow of what the actual implementation would be as this API is quite limited.
 
 ```ts
 API_ENDPOINT = https://API_KEY.mockapi.io/api/v1/:
@@ -21,8 +36,7 @@ METHODS: GET, GET /tasks/:id, POST, PUT: /tasks/:id, DELETE: /tasks/:id
 
 ## Endpoint (Mockapi.com)
 
-- [Homepage]()
 - [Documentation](https://docs.mockapi.com/)
-- [Dashboard](https://www.mockapi.com)
+- [Site](https://www.mockapi.com)
 
 <p align="center">Made with 💜 by <a href="https://victoreke.com" target="_blank" className="underline ml-1">Victor Eke</a></p>
