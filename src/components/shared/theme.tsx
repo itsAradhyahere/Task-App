@@ -40,7 +40,7 @@ export default function ThemeToggle({ hideLabel, size }: ThemeToggleProps) {
         items,
         onClick: handleToggleTheme,
         selectable: true,
-        defaultSelectedKeys: ["system"],
+        defaultSelectedKeys: [theme],
       }}
       trigger={["click"]}
       className="font-semibold capitalize"

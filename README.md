@@ -24,3 +24,5 @@ METHODS: GET, GET /tasks/:id, POST, PUT: /tasks/:id, DELETE: /tasks/:id
 - [Homepage]()
 - [Documentation](https://docs.mockapi.com/)
 - [Dashboard](https://www.mockapi.com)
+
+<p align="center">Made with 💜 by <a href="https://victoreke.com" target="_blank" className="underline ml-1">Victor Eke</a></p>

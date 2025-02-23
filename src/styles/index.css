@@ -9,15 +9,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 
-  Tailwind Config Theme (v4.0)
-  https://tailwindcss.com/docs/theme
-*/
-
 @custom-variant dark (&:where(.dark, .dark *));
 
 html {
-  @apply dark:bg-zinc-900 dark:text-white bg-white text-zinc-800;
+  @apply dark:bg-zinc-900 dark:text-white bg-white text-zinc-900;
 }
 
 @theme {
@@ -32,10 +27,27 @@ html {
   --color-primary-800: #3926ad;
   --color-primary-900: #322788;
   --color-primary-950: #1e174f;
+
+  --color-stale: #6e7c87;
+  --color-danger: #f76659;
+  --color-success: #4f9c20;
 }
 
 /* Antd Overrides */
 .ant-dropdown-menu-item-selected {
   color: #fff !important;
   background-color: var(--color-primary-600) !important;
+}
+
+.ant-tag {
+  font-size: 11px;
+}
+
+.ant-upload-wrapper .ant-upload-drag {
+  background: none;
+}
+
+.ant-modal-mask {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(4px);
 }

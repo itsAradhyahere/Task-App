@@ -8,7 +8,7 @@ export function Sidebar() {
   const isDark = theme === "dark";
 
   return (
-    <nav className="flex flex-col border-r dark:border-zinc-800 border-zinc-200 w-[18rem] h-full">
+    <nav className="flex flex-col border-r dark:border-zinc-800 border-zinc-200 min-w-[16rem] w-[16rem] h-full">
       <Link to="/" className="self-center my-6">
         <img
           src={`/${isDark ? "logo-white" : "logo"}.png`}
@@ -18,7 +18,7 @@ export function Sidebar() {
       </Link>
       <ul className="flex flex-col">
         {sidebarLinks.map((link) => (
-          <li>
+          <li key={link.slug}>
             <NavLink
               to={`/dashboard${link.slug ? "/" : ""}${link.slug}`}
               className={({ isActive }) =>

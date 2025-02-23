@@ -12,6 +12,7 @@ export default function Home() {
           width={80}
           height={80}
           className="block mb-5"
+          loading="eager"
         />
         <h1 className="font-semibold sm:text-4xl text-2xl mb-3">
           Task Management Tool

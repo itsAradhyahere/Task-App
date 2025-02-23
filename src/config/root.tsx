@@ -3,6 +3,7 @@ import App from "../App.tsx";
 import { ConfigProvider, ThemeConfig, theme } from "antd";
 import "@ant-design/v5-patch-for-react-19";
 import { useThemeStore } from "../store/theme-store.ts";
+import { Toaster } from "sonner";
 
 const { darkAlgorithm, defaultAlgorithm } = theme;
 
@@ -17,22 +18,27 @@ export function Root() {
       colorPrimaryHover: "#5f56fe",
       colorLink: "#4f35f3",
       colorBorder: isDark ? "#333" : "#ddd",
-
-      // Button
       colorBgContainer: isDark ? "#27272a" : "#fff",
       colorText: isDark ? "#fff" : "#111",
     },
-    // Input
     components: {
       Input: {
         activeBorderColor: "#5f56fe",
-        // hoverBorderColor: "#5f56fe",
         activeShadow: "none",
       },
       Button: {
         defaultActiveBorderColor: "#5f56fe",
         defaultHoverBorderColor: "#5f56fe",
         defaultActiveColor: "none",
+        primaryShadow: "none",
+      },
+      Badge: {
+        colorError: isDark ? "#333" : "#ddd",
+        colorTextLightSolid: isDark ? "#fff" : "#333",
+      },
+      Tooltip: {
+        colorBgSpotlight: isDark ? "#27272a" : "#fff",
+        colorTextLightSolid: isDark ? "#fff" : "#111",
       },
     },
     algorithm: isDark ? darkAlgorithm : defaultAlgorithm,
@@ -42,6 +48,7 @@ export function Root() {
     <StrictMode>
       <ConfigProvider theme={themeConfig}>
         <App />
+        <Toaster position="bottom-left" theme={resolvedTheme} />
       </ConfigProvider>
     </StrictMode>
   );
