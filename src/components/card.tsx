@@ -18,7 +18,8 @@ const items: MenuProps["items"] = [
 ];
 
 export function Card({ task }: CardType) {
-  const { setCreateIsOpen, setDeleteIsOpen, setMode } = useAppStore();
+  const { setCreateIsOpen, setDeleteIsOpen, setMode, setSelectedTask } =
+    useAppStore();
 
   const date = dayjs(task.deadline).format("MMM DD YYYY");
   const time = dayjs(`${task.deadline} ${task.time}`).format("h:mmA");
@@ -31,14 +32,15 @@ export function Card({ task }: CardType) {
     const state = key as ModeType;
     setMode({ state, id: task.id });
 
-    // Open create/edit modal if dropdown selection is edit
-    if (state !== "delete") {
-      setCreateIsOpen(true);
+    // Populate and open edit form if action is create/edit
+    if (state === "edit") {
+      setSelectedTask(task);
+      setCreateIsOpen({ state: true });
       return;
     }
 
-    // Open delete modal if dropdown selection is delete
-    setDeleteIsOpen(true);
+    // Otherwise, open "delete" modal
+    setDeleteIsOpen({ state: true, id: task.id });
   }
 
   return (
@@ -62,7 +64,7 @@ export function Card({ task }: CardType) {
         >
           <Button
             size="small"
-            icon={<HiEllipsisHorizontal />}
+            icon={<HiEllipsisHorizontal className="size-4" />}
             className="flex-shrink-0"
           />
         </Dropdown>
@@ -71,7 +73,7 @@ export function Card({ task }: CardType) {
         <img
           src={task.cover}
           alt={task.title}
-          className="block w-full h-32 rounded-sm aspect-video mb-2 bg-zinc-100 object-cover"
+          className="block w-full h-32 rounded-sm aspect-video mb-2 dark:bg-zinc-800 bg-zinc-100 object-cover"
         />
       )}
       {task.description && (

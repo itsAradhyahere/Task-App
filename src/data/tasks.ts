@@ -7,7 +7,7 @@ export const tasks = [
     cover: null,
     priority: "medium",
     deadline: "2025-02-24",
-    time: "23:15",
+    time: "11:15PM",
     status: "todo",
   },
   {
@@ -19,7 +19,7 @@ export const tasks = [
     cover: "https://picsum.photos/600?ramdom=1",
     priority: "high",
     deadline: "2025-02-22",
-    time: "14:00",
+    time: "02:00PM",
     status: "todo",
   },
   {
@@ -31,7 +31,7 @@ export const tasks = [
     cover: null,
     priority: "high",
     deadline: "2025-02-22",
-    time: "10:30",
+    time: "10:30AM",
     status: "in progress",
   },
   {
@@ -42,7 +42,7 @@ export const tasks = [
     cover: null,
     priority: "high",
     deadline: "2025-02-18",
-    time: "09:00",
+    time: "09:00AM",
     status: "in progress",
   },
   {
@@ -53,7 +53,7 @@ export const tasks = [
     cover: "https://picsum.photos/600?ramdom=2",
     priority: "medium",
     deadline: "2025-02-25",
-    time: "11:45",
+    time: "11:45AM",
     status: "todo",
   },
   {
@@ -64,7 +64,7 @@ export const tasks = [
     cover: null,
     priority: "low",
     deadline: "2025-02-16",
-    time: "13:00",
+    time: "01:00PM",
     status: "completed",
   },
   {
@@ -76,7 +76,7 @@ export const tasks = [
     cover: "https://picsum.photos/600?ramdom=3",
     priority: "high",
     deadline: "2025-02-21",
-    time: "15:00",
+    time: "03:00PM",
     status: "todo",
   },
   {
@@ -88,7 +88,7 @@ export const tasks = [
     cover: "https://picsum.photos/600?ramdom=4",
     priority: "medium",
     deadline: "2025-02-22",
-    time: "10:45",
+    time: "10:45AM",
     status: "in progress",
   },
   {
@@ -100,7 +100,7 @@ export const tasks = [
     cover: "https://picsum.photos/600?ramdom=5",
     priority: "high",
     deadline: "2025-02-19",
-    time: "13:30",
+    time: "01:30PM",
     status: "todo",
   },
   {
@@ -111,7 +111,7 @@ export const tasks = [
     cover: "https://picsum.photos/600?ramdom=6",
     priority: "medium",
     deadline: "2025-02-18",
-    time: "25:00",
+    time: "12:00AM",
     status: "in progress",
   },
   {
@@ -123,7 +123,7 @@ export const tasks = [
     cover: "https://picsum.photos/600?ramdom=7",
     priority: "high",
     deadline: "2025-02-25",
-    time: "09:30",
+    time: "09:30PM",
     status: "todo",
   },
   {
@@ -135,7 +135,7 @@ export const tasks = [
     cover: "https://picsum.photos/600?ramdom=8",
     priority: "high",
     deadline: "2025-02-01",
-    time: "14:15",
+    time: "02:15PM",
     status: "completed",
   },
   {
@@ -146,7 +146,7 @@ export const tasks = [
     cover: "https://picsum.photos/600?ramdom=9",
     priority: "medium",
     deadline: "2025-02-05",
-    time: "12:00",
+    time: "12:00AM",
     status: "todo",
   },
   {
@@ -158,7 +158,7 @@ export const tasks = [
     cover: null,
     priority: "medium",
     deadline: "2025-02-26",
-    time: "16:45",
+    time: "04:45PM",
     status: "completed",
   },
   {
@@ -169,7 +169,7 @@ export const tasks = [
     cover: null,
     priority: "low",
     deadline: "2025-02-16",
-    time: "11:30",
+    time: "11:30AM",
     status: "todo",
   },
   {
@@ -181,7 +181,7 @@ export const tasks = [
     cover: null,
     priority: "high",
     deadline: "2025-02-12",
-    time: "15:45",
+    time: "03:45PM",
     status: "in progress",
   },
 ];

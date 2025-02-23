@@ -4,8 +4,10 @@ import { ConfigProvider, ThemeConfig, theme } from "antd";
 import "@ant-design/v5-patch-for-react-19";
 import { useThemeStore } from "../store/theme-store.ts";
 import { Toaster } from "sonner";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const { darkAlgorithm, defaultAlgorithm } = theme;
+const queryClient = new QueryClient();
 
 export function Root() {
   const { resolvedTheme } = useThemeStore();
@@ -31,6 +33,7 @@ export function Root() {
         defaultHoverBorderColor: "#5f56fe",
         defaultActiveColor: "none",
         primaryShadow: "none",
+        dangerShadow: "none",
       },
       Badge: {
         colorError: isDark ? "#333" : "#ddd",
@@ -40,6 +43,17 @@ export function Root() {
         colorBgSpotlight: isDark ? "#27272a" : "#fff",
         colorTextLightSolid: isDark ? "#fff" : "#111",
       },
+      Select: {
+        activeBorderColor: "#5f56fe",
+        activeOutlineColor: "transparent",
+        controlItemBgActive: isDark ? "#5f56fe" : "#eee",
+        // colorText: "crimson",
+      },
+      DatePicker: {
+        activeBorderColor: "#5f56fe",
+        controlOutline: "transparent",
+        controlItemBgActive: "#5f56fe",
+      },
     },
     algorithm: isDark ? darkAlgorithm : defaultAlgorithm,
   };
@@ -47,7 +61,9 @@ export function Root() {
   return (
     <StrictMode>
       <ConfigProvider theme={themeConfig}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
         <Toaster position="bottom-left" theme={resolvedTheme} />
       </ConfigProvider>
     </StrictMode>

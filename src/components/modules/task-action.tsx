@@ -1,15 +1,41 @@
 import { Button, Modal } from "antd";
 import { toast } from "sonner";
+import { useAppStore } from "../../store/app-store";
+import { useState } from "react";
+import { deleteTask } from "../../queries/delete-task";
+import { useQueryClient } from "@tanstack/react-query";
 
 type TaskAction = {
   isOpen: boolean;
   handleClose: () => void;
+  handleRefresh?: () => void;
 };
 
-export default function TaskAction({ isOpen, handleClose }: TaskAction) {
-  function deleteTask() {
-    handleClose?.();
-    toast("Task Deleted");
+export default function TaskAction({
+  isOpen,
+  handleClose,
+  handleRefresh,
+}: TaskAction) {
+  const [isDeleting, setIsDeleting] = useState(false);
+  const id = useAppStore((state) => state.deleteIsOpen.id);
+  const queryClient = useQueryClient();
+
+  async function handleDeleteTask() {
+    try {
+      setIsDeleting(true);
+      const response = await queryClient.fetchQuery({
+        queryKey: ["delete-task"],
+        queryFn: () => deleteTask(id ?? ""),
+      });
+
+      if (response.success) {
+        handleRefresh?.();
+        handleClose();
+      }
+      toast(response.message);
+    } finally {
+      setIsDeleting(false);
+    }
   }
 
   return (
@@ -27,7 +53,12 @@ export default function TaskAction({ isOpen, handleClose }: TaskAction) {
         </p>
         <div className="flex items-center gap-3">
           <Button onClick={() => handleClose()}>Cancel</Button>
-          <Button onClick={deleteTask} color="danger" variant="solid">
+          <Button
+            loading={isDeleting}
+            onClick={handleDeleteTask}
+            color="danger"
+            variant="solid"
+          >
             Delete Task
           </Button>
         </div>

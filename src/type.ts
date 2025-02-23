@@ -13,3 +13,12 @@ export type TaskType = {
 };
 
 export type ImageFormats = "JPEG" | "PNG" | "GIF" | "SVG" | "WebP";
+
+export type FileData = {
+  url: string | null;
+  name: string | null;
+  size: number;
+  progress: number;
+};
+
+export type BoardType = "todo" | "in progress" | "completed";

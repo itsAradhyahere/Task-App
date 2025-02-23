@@ -1,37 +1,28 @@
 import { Button, Progress, Upload, UploadProps } from "antd";
 import { useEffect, useState } from "react";
-import { ImageFormats } from "../../type";
+import { FileData, ImageFormats } from "../../type";
 import { FiTrash2, FiUploadCloud } from "react-icons/fi";
 import { formatFileSize } from "../../utils/format-size";
+import { format_options } from "../../data/constants";
 
 interface UploadButtonProps extends UploadProps {
   formats?: ImageFormats[];
+  onUpload?: (fileData: FileData | null) => void;
+  url?: string; // Image URL from selected Task
+  fileData: FileData | null;
+  setFileData: React.Dispatch<React.SetStateAction<FileData | null>>;
 }
-
-type FileData = {
-  url: string | null;
-  name: string | null;
-  size: number;
-  progress: number;
-};
-
-const format_options = [
-  { label: "JPEG", type: "image/jpeg" },
-  { label: "PNG", type: "image/png" },
-  { label: "GIF", type: "image/gif" },
-  { label: "SVG", type: "image/svg+xml" },
-  { label: "WebP", type: "image/webp" },
-];
 
 export default function UploadInput(props: UploadButtonProps) {
   const [error, setError] = useState("");
-  const [fileData, setFileData] = useState<FileData>({
-    url: null,
-    name: null,
-    size: 0,
-    progress: 0,
-  });
-  const { formats = ["JPEG", "PNG", "SVG"], ...rest } = props;
+  const {
+    formats = ["JPEG", "PNG", "SVG"],
+    onUpload,
+    url,
+    fileData,
+    setFileData,
+    ...rest
+  } = props;
 
   const handlePreview = (file: File) => {
     const reader = new FileReader();
@@ -40,21 +31,35 @@ export default function UploadInput(props: UploadButtonProps) {
     reader.onprogress = (event) => {
       if (event.lengthComputable) {
         const percent = Math.round((event.loaded / event.total) * 100);
-        setFileData((prev) => ({ ...prev, progress: percent }));
+        setFileData((prev) => {
+          if (!prev) return prev;
+          return { ...prev, progress: percent };
+        });
       }
     };
 
     // Set upload when completed
     reader.onload = () => {
-      setFileData({
+      const newFileData: FileData = {
         url: reader.result as string,
         name: file.name,
         size: file.size,
         progress: 100,
-      });
+      };
+      setFileData(newFileData);
+
+      setTimeout(() => {
+        onUpload?.(newFileData);
+      }, 0);
     };
     reader.readAsDataURL(file);
   };
+
+  function handleDeleteFile(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+    e.preventDefault();
+    setFileData({ name: null, progress: 0, size: 0, url: null });
+    setTimeout(() => onUpload?.(null), 0);
+  }
 
   function handleFileExclusions(file: File) {
     const allowedTypes = formats
@@ -66,34 +71,40 @@ export default function UploadInput(props: UploadButtonProps) {
 
     const isValidType = allowedTypes?.includes(file.type);
 
+    // Validate image format
     if (!isValidType) {
       setError("File format not supported");
+      return false;
+    }
+
+    // Validate image size
+    if (file.size / 1024 > 50) {
+      setError("Upload an image lesser than 50KB");
+      return false;
     }
 
     handlePreview(file);
     return isValidType || Upload.LIST_IGNORE;
   }
 
-  function handleDeleteFile(e: React.MouseEvent<HTMLElement, MouseEvent>) {
-    e.preventDefault();
-    setFileData({ name: null, progress: 0, size: 0, url: null });
-  }
+  // Handle display and hide error message
+  useEffect(() => {
+    if (error) {
+      const timeout = setTimeout(() => setError(""), 7000);
+      return () => clearTimeout(timeout);
+    }
+  }, [error]);
 
   useEffect(() => {
-    function hideErrorMessage() {
-      setTimeout(() => {
-        setError("");
-      }, 7000);
+    if (url) {
+      setFileData((prev) => ({
+        url: prev?.url ?? url,
+        name: prev?.name ?? "image.jpg",
+        size: prev?.size ?? 0,
+        progress: 100,
+      }));
     }
-
-    if (error) {
-      hideErrorMessage();
-    }
-
-    return () => {
-      hideErrorMessage();
-    };
-  }, [error]);
+  }, [setFileData, url]);
 
   return (
     <div>
@@ -106,7 +117,7 @@ export default function UploadInput(props: UploadButtonProps) {
         customRequest={() => null}
       >
         <div className="flex flex-col gap-4 justify-between rounded-lg p-3 cursor-pointer">
-          {!fileData["url"] && (
+          {!fileData?.url && (
             <>
               <div className="dark:bg-zinc-800 bg-zinc-100 self-center p-3 rounded-full">
                 <FiUploadCloud className="size-5" />
@@ -122,7 +133,7 @@ export default function UploadInput(props: UploadButtonProps) {
               </button>
             </>
           )}
-          {fileData["url"] && fileData["name"] && (
+          {fileData?.url && fileData?.name && (
             <div className="flex sm:flex-row flex-col sm:items-center items-stretch justify-between gap-4">
               <div className="flex sm:flex-row flex-col items-center gap-3">
                 <img
@@ -135,7 +146,9 @@ export default function UploadInput(props: UploadButtonProps) {
                     {fileData.name}
                   </p>
                   <p className="opacity-60 text-xs">
-                    {formatFileSize(fileData.size)}
+                    {fileData.size === 0
+                      ? "Unknown Size"
+                      : formatFileSize(fileData.size)}
                   </p>
                   {fileData.progress > 0 && (
                     <Progress
