@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { BoardType, ModeType, TaskType } from "../type";
+import { BoardType, ModeType, PriorityType, TaskType } from "../type";
 
 export type ModeParamType = {
   state: ModeType;
@@ -27,6 +27,8 @@ interface State {
   deleteIsOpen: DeleteParamType;
   selectedTask: TaskType | null;
   activeTask: ActiveTaskParam;
+  filter: BoardType | null;
+  priority: PriorityType | null;
 }
 
 interface Action {
@@ -35,6 +37,8 @@ interface Action {
   setDeleteIsOpen: (params: DeleteParamType) => void;
   setSelectedTask: (task: State["selectedTask"]) => void;
   setActiveTask: (param: State["activeTask"]) => void;
+  setFilter: (filter: State["filter"]) => void;
+  setPriority: (priority: State["priority"]) => void;
 }
 
 const initialState: State = {
@@ -43,6 +47,8 @@ const initialState: State = {
   deleteIsOpen: { state: false },
   selectedTask: null,
   activeTask: { boardType: "todo" },
+  filter: null,
+  priority: null,
 };
 
 export const useAppStore = create<State & Action>((set) => ({
@@ -53,4 +59,6 @@ export const useAppStore = create<State & Action>((set) => ({
   setSelectedTask: (task) => set({ selectedTask: task }),
   setActiveTask: (state) =>
     set({ activeTask: { boardType: state.boardType, id: state?.id } }),
+  setFilter: (filter) => set({ filter }),
+  setPriority: (priority) => set({ priority }),
 }));

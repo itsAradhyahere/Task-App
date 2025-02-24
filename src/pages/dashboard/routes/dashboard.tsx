@@ -10,22 +10,20 @@ const boards = [
   {
     id: "todo",
     label: "To Do",
-    count: 5,
   },
   {
     id: "in progress",
     label: "In Progress",
-    count: 0,
   },
   {
     id: "completed",
     label: "Completed",
-    count: 3,
   },
 ];
 
 export default function Dashboard() {
   const store = useAppStore();
+  const priority = store.priority;
 
   function handleAddNewCard(type: BoardType) {
     store.setSelectedTask(null);
@@ -33,8 +31,8 @@ export default function Dashboard() {
   }
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["get-tasks"],
-    queryFn: async () => await getTasks(),
+    queryKey: ["get-tasks", priority],
+    queryFn: async () => await getTasks({ priority }),
   });
 
   const tasks = data?.data ?? [];

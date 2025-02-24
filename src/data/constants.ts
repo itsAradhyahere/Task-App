@@ -19,3 +19,10 @@ export const board_options = [
   { value: "in progress", label: "In Progress" },
   { value: "completed", label: "Completed" },
 ];
+
+export const filter_options: MenuProps["items"] = [
+  { key: "", label: "Default" },
+  { key: "low", label: "Low" },
+  { key: "medium", label: "Medium" },
+  { key: "high", label: "High" },
+];

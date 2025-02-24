@@ -8,9 +8,14 @@ type TaskResponse = {
   message?: string;
 };
 
-export async function getTasks(): Promise<TaskResponse> {
+type ParamType = {
+  // status: string | null; // Filter by status
+  priority: string | null;
+};
+
+export async function getTasks(params: ParamType): Promise<TaskResponse> {
   try {
-    const response = await axios.get<TaskType[]>(API_URL);
+    const response = await axios.get<TaskType[]>(API_URL, { params });
     return {
       data: response.data,
       success: true,
