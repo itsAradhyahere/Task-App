@@ -14,8 +14,8 @@ export function Sidebar() {
   return (
     <nav
       className={clsx(
-        "sm:flex flex-col border-r dark:border-zinc-800 border-zinc-200 dark:bg-zinc-900 bg-white h-full transition-[width] duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] lg:min-w-[16rem] lg:w-[16rem] min-w-[3.5rem] w-[3.5rem] lg:relative absolute hidden z-50",
-        isToggled && "absolute w-[16rem]"
+        "lg:flex flex-col border-r dark:border-zinc-800 border-zinc-200 dark:bg-zinc-900 bg-white h-full transition-[width] duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] min-w-[16rem] w-[16rem] lg:relative absolute hidden z-50",
+        isToggled && "absolute"
       )}
     >
       <div className="flex self-center items-center h-28 py-6">
