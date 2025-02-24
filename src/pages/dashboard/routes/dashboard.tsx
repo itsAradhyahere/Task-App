@@ -50,6 +50,7 @@ export default function Dashboard() {
             tasks={tasks.filter((task) => task.status === board.id)}
             onAddNewCard={() => handleAddNewCard(board.id as BoardType)}
             loading={isLoading}
+            handleRefresh={refetch}
           />
         ))}
       </div>

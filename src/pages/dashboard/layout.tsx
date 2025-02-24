@@ -8,7 +8,7 @@ export default function Layout() {
       <Sidebar />
       <main className="flex flex-col w-full overflow-y-auto overflow-x-hidden">
         <Header />
-        <div className="pt-8 pb-16 lg:px-8 px-6 overflow-x-auto scroll-smooth">
+        <div className="pt-8 pb-16 lg:px-8 px-6 overflow-x-auto scroll-smooth h-full">
           <Outlet />
         </div>
       </main>

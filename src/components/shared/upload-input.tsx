@@ -141,15 +141,15 @@ export default function UploadInput(props: UploadButtonProps) {
                   alt={fileData.name}
                   className="h-20 aspect-video sm:w-auto w-full object-cover rounded-sm dark:bg-zinc-800 bg-zinc-200"
                 />
-                <div className="text-left self-start">
+                <div className="text-left self-center">
                   <p className="font-medium line-clamp-2 md:max-w-[160px] max-w-[120px] leading-5 mb-1">
                     {fileData.name}
                   </p>
-                  <p className="opacity-60 text-xs">
-                    {fileData.size === 0
-                      ? "Unknown Size"
-                      : formatFileSize(fileData.size)}
-                  </p>
+                  {fileData.size > 0 && (
+                    <p className="opacity-60 text-xs">
+                      {formatFileSize(fileData.size)}
+                    </p>
+                  )}
                   {fileData.progress > 0 && (
                     <Progress
                       percent={fileData.progress}

@@ -22,3 +22,4 @@ export type FileData = {
 };
 
 export type BoardType = "todo" | "in progress" | "completed";
+export type ModeType = "create" | "edit" | "delete";

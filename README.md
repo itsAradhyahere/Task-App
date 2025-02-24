@@ -11,15 +11,23 @@ Innovative task management for teams of all sizes. Streamline your workflow, boo
 
 ## Run Project Locally
 
+- Clone repository
+
 ```sh
 git clone https://github.com/Evavic44/tasky.git
 cd tasky
+```
 
+- Rename `.env.example` to `.env`
+
+- Run project locally
+
+```sh
 npm install
 npm run dev
 ```
 
-Finally you can visit [localhost:5173](http://localhost:5173) to see the app live
+Visit [localhost:5173](http://localhost:5173) to see the app live
 
 ## Endpoint (Mockapi.io)
 

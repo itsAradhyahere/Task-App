@@ -3,7 +3,6 @@ import { API_URL } from "./api";
 import { TaskType } from "../type";
 import { TaskResponse } from "./create-task";
 
-// TODO: Merge function with createTask to keep code DRY
 export async function deleteTask(id: string): Promise<TaskResponse> {
   try {
     const response = await axios.delete<TaskType | null>(`${API_URL}/${id}`);

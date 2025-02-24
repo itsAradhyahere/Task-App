@@ -11,11 +11,11 @@ export function LoadingSpinner({
   return (
     <div
       className={clsx(
-        "flex flex-col items-center justify-center text-center gap-1.5 w-full",
+        "flex flex-col items-center justify-center text-center gap-1.5 w-full min-h-20",
         pageLoader && "h-[30vh]"
       )}
     >
-      <SpinnerIcon className="animate-spin duration-200 text-primary-500 size-6" />
+      <SpinnerIcon className="animate-spin text-primary-500 size-7" />
       {text && <p className="tracking-tight opacity-90 text-sm">{text}</p>}
     </div>
   );

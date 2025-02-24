@@ -1,25 +1,24 @@
-import { Button, Dropdown, MenuProps, Tooltip } from "antd";
-import { PriorityType, TaskType } from "../type";
+import dayjs from "dayjs";
+import clsx from "clsx";
+import { Button, Dropdown, Popover } from "antd";
+import { BoardType, ModeType, PriorityType, TaskType } from "../type";
 import { Tag } from "./shared/tag";
 import { HiEllipsisHorizontal } from "react-icons/hi2";
 import { HiFlag } from "react-icons/hi";
-import dayjs from "dayjs";
-import clsx from "clsx";
 import { isOverdue } from "../utils/overdue";
-import { ModeType, useAppStore } from "../store/app-store";
+import { useAppStore } from "../store/app-store";
+import { task_action_options } from "../data/constants";
+import { TaskTransfer } from "./modules/task-transfer";
+import { useState } from "react";
 
-type CardType = {
+export type CardType = {
   task: TaskType;
+  handleRefresh?: () => void;
 };
 
-const items: MenuProps["items"] = [
-  { key: "edit", label: "Edit" },
-  { key: "delete", label: "Delete", danger: true },
-];
-
-export function Card({ task }: CardType) {
-  const { setCreateIsOpen, setDeleteIsOpen, setMode, setSelectedTask } =
-    useAppStore();
+export function Card({ task, handleRefresh }: CardType) {
+  const store = useAppStore((state) => state);
+  const [boardTypeDialogIsOpen, setBoardTypeDialogIsOpen] = useState(false);
 
   const date = dayjs(task.deadline).format("MMM DD YYYY");
   const time = dayjs(`${task.deadline} ${task.time}`).format("h:mmA");
@@ -28,46 +27,72 @@ export function Card({ task }: CardType) {
   const isTaskOverdue = isOverdue(date, time);
 
   function handleDropdownAction(key: string) {
-    // Keys represent the different dropdown modes: "edit" | "delete"
+    // Key represent the different dropdown modes: "edit" | "delete" | "move"
     const state = key as ModeType;
-    setMode({ state, id: task.id });
+    store.setMode({ state, id: task.id });
+    const boardType = task.status as BoardType;
 
-    // Populate and open edit form if action is create/edit
+    // Populate and open create/edit form if action is "edit"
     if (state === "edit") {
-      setSelectedTask(task);
-      setCreateIsOpen({ state: true });
+      store.setSelectedTask(task);
+      store.setCreateIsOpen({ state: true });
       return;
     }
 
-    // Otherwise, open "delete" modal
-    setDeleteIsOpen({ state: true, id: task.id });
+    // Open "delete" modal if action is "delete"
+    if (state === "delete") {
+      store.setDeleteIsOpen({ state: true, id: task.id });
+      return;
+    }
+
+    // Else, display move popup and store the task id to be moved
+    setBoardTypeDialogIsOpen(true);
+    store.setActiveTask({ boardType, id: task.id });
+  }
+
+  function closeMoveDialog() {
+    setBoardTypeDialogIsOpen(false);
   }
 
   return (
     <article className="dark:bg-zinc-900 bg-white p-4 rounded-md shadow">
-      <div className="mb-3">
+      <div className="mb-2">
         <Tag type={task.priority as PriorityType} />
       </div>
-      <header className="flex items-center justify-between gap-2 mb-3">
-        <Tooltip title={task.title}>
-          <h2 className="text-base font-semibold line-clamp-2 overflow-ellipsis">
-            {task.title}
-          </h2>
-        </Tooltip>
-        <Dropdown
-          placement="bottomRight"
-          menu={{
-            items,
-            onClick: (value) => handleDropdownAction(value.key),
-          }}
-          trigger={["click"]}
-        >
-          <Button
-            size="small"
-            icon={<HiEllipsisHorizontal className="size-4" />}
-            className="flex-shrink-0"
+      <header className="flex items-start justify-between gap-2 mb-3">
+        <h2 className="text-base font-semibold line-clamp-2 overflow-ellipsis">
+          {task.title}
+        </h2>
+        <div className="flex flex-col">
+          <Dropdown
+            placement="bottomRight"
+            menu={{
+              items: task_action_options,
+              onClick: (value) => handleDropdownAction(value.key),
+            }}
+            trigger={["click"]}
+          >
+            <Button
+              size="small"
+              icon={<HiEllipsisHorizontal className="size-4" />}
+              className="flex-shrink-0"
+            />
+          </Dropdown>
+          <Popover
+            open={boardTypeDialogIsOpen}
+            onOpenChange={closeMoveDialog}
+            content={
+              <TaskTransfer
+                handleClose={closeMoveDialog}
+                handleRefresh={handleRefresh}
+              />
+            }
+            trigger="click"
+            placement="bottomRight"
+            arrow={false}
+            destroyTooltipOnHide={true}
           />
-        </Dropdown>
+        </div>
       </header>
       {task.cover && (
         <img

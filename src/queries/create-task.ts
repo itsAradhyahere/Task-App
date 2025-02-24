@@ -1,11 +1,10 @@
 import axios from "axios";
 import { API_URL } from "./api";
-import { TaskType } from "../type";
-import { ModeType } from "../store/app-store";
+import { ModeType, TaskType } from "../type";
 
 export type TaskResponse = {
   success: boolean;
-  data: TaskType | null;
+  data?: TaskType | null;
   message?: string;
 };
 
