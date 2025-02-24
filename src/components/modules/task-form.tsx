@@ -60,7 +60,7 @@ export default function TaskForm({
         priority: values.priority ?? "low",
         deadline: values.deadline ?? "",
         time: values.time ?? "",
-        status: createIsOpen.type ?? "todo",
+        status: createIsOpen.type,
       };
       try {
         setIsCreating(true);
@@ -166,7 +166,7 @@ export default function TaskForm({
             </p>
             <UploadInput
               name="cover"
-              formats={["JPEG", "PNG"]}
+              formats={["JPEG", "PNG", "GIF"]}
               onUpload={(file) => formik.setFieldValue("cover", file?.url)}
               fileData={fileData}
               setFileData={setFileData}

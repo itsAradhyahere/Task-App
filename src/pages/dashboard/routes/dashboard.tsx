@@ -46,7 +46,6 @@ export default function Dashboard() {
           <Board
             key={board.id}
             title={board.label}
-            count={board.count}
             tasks={tasks.filter((task) => task.status === board.id)}
             onAddNewCard={() => handleAddNewCard(board.id as BoardType)}
             loading={isLoading}

@@ -78,8 +78,8 @@ export default function UploadInput(props: UploadButtonProps) {
     }
 
     // Validate image size
-    if (file.size / 1024 > 50) {
-      setError("Upload an image lesser than 50KB");
+    if (file.size / 1024 > 60) {
+      setError("Upload an image lesser than 60KB");
       return false;
     }
 

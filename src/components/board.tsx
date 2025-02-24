@@ -6,7 +6,6 @@ import { LoadingSpinner } from "./shared/spinner";
 
 type BoardProps = {
   title: string;
-  count: number;
   tasks: TaskType[];
   onAddNewCard: () => void;
   loading?: boolean;
@@ -14,14 +13,19 @@ type BoardProps = {
 };
 
 export function Board(props: BoardProps) {
-  const { title, count, tasks, loading, onAddNewCard, handleRefresh } = props;
+  const { title, tasks, loading, onAddNewCard, handleRefresh } = props;
 
   return (
     <div className="dark:bg-zinc-800 bg-[#F5F7F9] px-3 pt-2 pb-4 rounded-lg h-fit min-h-32">
       <header className="flex items-center justify-between gap-4 mb-2">
         <div className="flex items-center gap-2">
           <h3 className="text-sm font-medium">{title}</h3>
-          <Badge showZero count={count} className="badge" status="warning" />
+          <Badge
+            showZero
+            count={tasks.length}
+            className="badge"
+            status="warning"
+          />
         </div>
         <button
           onClick={onAddNewCard}

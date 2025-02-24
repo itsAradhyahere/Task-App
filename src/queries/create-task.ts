@@ -15,7 +15,7 @@ export type CreateTaskPayload = {
   priority: string;
   deadline: string;
   time: string;
-  status: string;
+  status?: string;
 };
 
 export async function createOrEditTask(

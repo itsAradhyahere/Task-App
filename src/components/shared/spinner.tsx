@@ -15,7 +15,7 @@ export function LoadingSpinner({
         pageLoader && "h-[30vh]"
       )}
     >
-      <SpinnerIcon className="animate-spin text-primary-500 size-7" />
+      <SpinnerIcon className="animate-spin [animation-duration:500ms] text-primary-500 size-7" />
       {text && <p className="tracking-tight opacity-90 text-sm">{text}</p>}
     </div>
   );
