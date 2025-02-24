@@ -14,16 +14,24 @@ export function Sidebar() {
   return (
     <nav
       className={clsx(
-        "sm:flex flex-col border-r dark:border-zinc-800 border-zinc-200 dark:bg-zinc-900 bg-white h-full duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] lg:min-w-[16rem] lg:w-[16rem] min-w-[3.5rem] w-[3.5rem] lg:relative absolute hidden z-50",
+        "sm:flex flex-col border-r dark:border-zinc-800 border-zinc-200 dark:bg-zinc-900 bg-white h-full transition-[width] duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] lg:min-w-[16rem] lg:w-[16rem] min-w-[3.5rem] w-[3.5rem] lg:relative absolute hidden z-50",
         isToggled && "absolute w-[16rem]"
       )}
     >
-      <div className="self-center h-20 py-6">
+      <div className="flex self-center items-center h-28 py-6">
         <Link to="/" className="lg:block hidden">
+          {/* TODO: Replace PNG logo with single SVG variant for better interactivity */}
           <img
-            src={`/${isDark ? "logo-white" : "logo"}.png`}
+            src="/logo.png"
             alt="techinnover logo"
             width={170}
+            className={clsx(isDark && "hidden")}
+          />
+          <img
+            src="/logo-white.png"
+            alt="techinnover logo"
+            width={170}
+            className={clsx(!isDark && "hidden")}
           />
         </Link>
         <div className="lg:hidden block absolute right-4">
@@ -44,7 +52,7 @@ export function Sidebar() {
               to={`/dashboard${link.slug ? "/" : ""}${link.slug}`}
               className={({ isActive }) =>
                 clsx(
-                  "flex items-center gap-4 py-3 px-4 border-r-2 hover:dark:text-zinc-400 hover:text-primary-500 transition text-sm font-semibold",
+                  "flex items-center gap-4 py-3 px-4 border-r-2 hover:dark:text-zinc-400 hover:text-primary-500 text-sm font-semibold",
                   isActive
                     ? "border-r-2 border-primary-400 dark:hover:text-white dark:text-white text-primary-600 dark:bg-zinc-800 bg-primary-50"
                     : "border-transparent"
