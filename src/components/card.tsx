@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import clsx from "clsx";
 import { Button, Dropdown, Popover } from "antd";
 import { BoardType, ModeType, PriorityType, TaskType } from "../type";
@@ -10,6 +9,7 @@ import { useAppStore } from "../store/app-store";
 import { task_action_options } from "../data/constants";
 import { TaskTransfer } from "./modules/task-transfer";
 import { useState } from "react";
+import { formatDateTime } from "../utils/format-time";
 
 export type CardType = {
   task: TaskType;
@@ -20,8 +20,7 @@ export function Card({ task, handleRefresh }: CardType) {
   const store = useAppStore((state) => state);
   const [boardTypeDialogIsOpen, setBoardTypeDialogIsOpen] = useState(false);
 
-  const date = dayjs(task.deadline).format("MMM DD YYYY");
-  const time = dayjs(`${task.deadline} ${task.time}`).format("h:mmA");
+  const { date, time } = formatDateTime(task.deadline, task.time);
 
   const isCompleted = task.status === "completed";
   const isTaskOverdue = isOverdue(date, time);
